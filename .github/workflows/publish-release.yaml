@@ -1,0 +1,37 @@
+name: publish-release
+on:
+  release:
+    types: [published]
+jobs:
+  publish-release:
+    runs-on:
+      labels:
+        - generic-v2
+    concurrency: publish
+    steps:
+      - run: echo 'package ${{ github.ref_name }}'
+      - name: Checkout source
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+        with:
+          fetch-depth: 0
+      - name: Get shared actions
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/container-image
+        with:
+          tags: ghcr.io/doodlescheduling/${{ github.event.repository.name }}:${{ github.ref_name }}
+          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub-password: ${{ secrets.DOCKERHUB_TOKEN }}
+          ghcr-username: ${{ github.actor }}
+          ghcr-password: ${{ secrets.GITHUB_TOKEN }}
+          cosign-private-key: ${{ secrets.COSIGN_PRIV_KEY }}
+          platforms: linux/amd64,linux/arm64
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+    timeout-minutes: 45

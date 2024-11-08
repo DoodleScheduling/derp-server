@@ -1,0 +1,47 @@
+name: pr-actions
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+permissions: {}
+jobs:
+  validate-workflows:
+    permissions:
+      contents: read
+    runs-on:
+      labels:
+        - minimalistic-v2
+    if: ${{ github.event.pull_request.state == 'open' }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - name: Get shared actions
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: './.actions/validate-workflow'
+    timeout-minutes: 45
+  ensure-pinned-actions:
+    permissions:
+      contents: read
+    runs-on:
+      labels:
+        - minimalistic-v2
+    if: ${{ github.event.pull_request.state == 'open' }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - name: Get shared actions
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: './.actions/ensure-pinned-actions'
+    timeout-minutes: 45
