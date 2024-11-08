@@ -1,0 +1,27 @@
+name: pr-gitleaks
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  gitleaks:
+    runs-on:
+      labels:
+        - minimalistic-v2
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        with:
+          fetch-depth: 0
+      - name: Get shared actions
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/gitleaks
+    timeout-minutes: 45

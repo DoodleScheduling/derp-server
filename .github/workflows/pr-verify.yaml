@@ -1,0 +1,64 @@
+name: pr-verify
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  size-label:
+    runs-on:
+      labels:
+        - minimalistic-v2
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: Get shared actions
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/pull-request-size
+        with:
+          token: ${{ secrets.GH_ACTIONS }}
+    timeout-minutes: 45
+  pr-title:
+    runs-on:
+      labels:
+        - minimalistic-v2
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: Get shared actions
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/pull-request-title
+        with:
+          token: ${{ secrets.GH_ACTIONS }}
+    timeout-minutes: 45
+  release-label:
+    runs-on:
+      labels:
+        - minimalistic-v2
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Get shared actions
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/preview-release
+        with:
+          token: ${{ secrets.GH_ACTIONS }}
+    timeout-minutes: 45

@@ -1,0 +1,44 @@
+name: pr-build
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  build:
+    permissions:
+      packages: write
+      contents: read
+      statuses: read
+      actions: write
+      id-token: write
+    runs-on:
+      labels:
+        - generic-v2
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+        with:
+          fetch-depth: 0
+      - name: Get shared actions
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/short-sha
+        id: short-sha
+      - uses: ./.actions/container-image
+        with:
+          tags: ghcr.io/doodlescheduling/${{ github.event.repository.name }}:${{ steps.short-sha.outputs.ref }}
+          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub-password: ${{ secrets.DOCKERHUB_TOKEN }}
+          ghcr-password: ${{ secrets.GITHUB_TOKEN }}
+          cosign-private-key: ${{ secrets.COSIGN_PRIV_KEY }}
+          platforms: linux/amd64,linux/arm64
+    timeout-minutes: 45
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
