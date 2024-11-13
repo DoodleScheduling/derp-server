@@ -2,20 +2,17 @@ name: pr-stale
 on:
   schedule:
     - cron: '30 1 * * *'
+
+permissions: {}
+
 jobs:
   stale:
-    runs-on:
-      labels:
-        - minimalistic-v2
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
-      - name: Get shared actions
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
-        with:
-          repository: 'DoodleScheduling/actions'
-          ref: v3
-          path: './.actions'
-          token: ${{ secrets.GH_ACTIONS }}
-      - uses: ./.actions/stale
-        with:
-          repo-token: ${{ secrets.GH_ACTIONS }}
-    timeout-minutes: 45
+    - uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9.0.0
+      with:
+        days-before-close: '120'
+        stale-pr-label: stale
+        repo-token: ${{ github.token }}
