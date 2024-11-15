@@ -1,24 +1,5 @@
 project_name: derp-server
 
-# before: 
-#   hooks: 
-#     - rm -rf tailscale || true 
-#     - git clone https://github.com/tailscale/tailscale/
-
-# builds:
-# - id: derper
-#   binary: derper
-#   main: ./cmd/derper
-#   dir: tailscale
-#   goos:
-#   - linux
-#   goarch:
-#   - amd64
-#   - arm64
-#   env:
-#   - CGO_ENABLED=0
-#   - GO111MODULE=on
-
 builds:
 - id: derper
   binary: derper
@@ -32,7 +13,6 @@ builds:
   env:
   - CGO_ENABLED=0
   - GO111MODULE=on
-
 
 archives:
 - id: derper
