@@ -1,29 +1,28 @@
 project_name: derp-server
 
+# before: 
+#   hooks: 
+#     - rm -rf tailscale || true 
+#     - git clone https://github.com/tailscale/tailscale/
+
 # builds:
-# - id: manager
-#   binary: manager
+# - id: derper
+#   binary: derper
+#   main: ./cmd/derper
+#   dir: tailscale
 #   goos:
 #   - linux
+#   goarch:
+#   - amd64
+#   - arm64
 #   env:
 #   - CGO_ENABLED=0
-
-# archives:
-# - id: manager
-#   name_template: "manager_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
-#   builds:
-#   - manager
-
-before: 
-  hooks: 
-    - rm -rf tailscale || true 
-    - git clone https://github.com/tailscale/tailscale/
+#   - GO111MODULE=on
 
 builds:
 - id: derper
   binary: derper
-  main: ./cmd/derper
-  dir: tailscale
+  main: tailscale.com/cmd/derper
   goos:
   - linux
   goarch:
@@ -32,6 +31,7 @@ builds:
   env:
   - CGO_ENABLED=0
   - GO111MODULE=on
+
 
 archives:
 - id: derper
@@ -61,7 +61,7 @@ dockers:
   dockerfile: Dockerfile
   use: buildx
   ids:
-  - derperer
+  - derper
   build_flag_templates:
   - --platform=linux/amd64
   - --label=org.opencontainers.image.title={{ .ProjectName }}
@@ -78,7 +78,7 @@ dockers:
   dockerfile: Dockerfile
   use: buildx
   ids:
-  - derperer
+  - derper
   build_flag_templates:
   - --platform=linux/arm64/v8
   - --label=org.opencontainers.image.title={{ .ProjectName }}
