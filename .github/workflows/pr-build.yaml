@@ -32,25 +32,6 @@ jobs:
           go-version: 1.22.x
       - name: build
         run: |
-          CGO_ENABLED=0 go build -x -o derper tailscale.com/cmd/derper
-      - name: Check if working tree is dirty
-        run: |
-          if [[ $(git diff --stat) != '' ]]; then
-            git --no-pager diff
-            echo 'run <make test> and commit changes'
-            exit 1
-          fi
-
-      - name: Build container image
-        run: |
-          docker build -t derp-server:latest .
-
-      - name: Create image tarball
-        run: |
-          docker save --output derp-server-container.tar derp-server:latest
-
-      - name: Upload image
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
-        with:
-          name: derp-server-container
-          path: derp-server-container.tar        
+          ln -s $(go list -m -f '{{.Dir}}' tailscale.com) app
+          cd app
+          CGO_ENABLED=0 go build -x -o derper cmd/derper

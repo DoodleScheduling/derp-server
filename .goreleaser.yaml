@@ -22,7 +22,8 @@ project_name: derp-server
 builds:
 - id: derper
   binary: derper
-  main: tailscale.com/cmd/derper
+  dir: app
+  main: cmd/derper
   goos:
   - linux
   goarch:

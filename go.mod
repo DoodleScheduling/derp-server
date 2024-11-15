@@ -2,6 +2,8 @@ module github.com/DoodleScheduling/derp-server
 
 go 1.23.3
 
+require tailscale.com v1.76.6
+
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/akutz/memconn v0.1.0 // indirect
@@ -42,5 +44,4 @@ require (
 	golang.org/x/time v0.5.0 // indirect
 	golang.zx2c4.com/wireguard/windows v0.5.3 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
-	tailscale.com v1.76.6 // indirect
 )

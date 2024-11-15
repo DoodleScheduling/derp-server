@@ -34,6 +34,9 @@ jobs:
       - name: Setup Cosign
         uses: sigstore/cosign-installer@dc72c7d5c4d10cd6bcb8cf6e3fd625a9e5e537da # v3.7.0
       - uses: anchore/sbom-action/download-syft@fc46e51fd3cb168ffb36c6d1915723c47db58abb # v0.17.7
+      - name: Link tailscale
+        run: |
+          ln -s $(go list -m -f '{{.Dir}}' tailscale.com) app
       - name: Create release and SBOM
         if: startsWith(github.ref, 'refs/tags/v')
         uses: goreleaser/goreleaser-action@9ed2f89a662bf1735a48bc8557fd212fa902bebf # v6.1.0
