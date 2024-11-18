@@ -40,6 +40,8 @@ jobs:
           echo GOPATH $GOPATH
           echo GOMODCACHE $GOMODCACHE
           
+          go mod download
+
           echo "tailscale module path:"
           go list -m -f '{{.Dir}}' tailscale.com
           echo "tailscale module content:"
