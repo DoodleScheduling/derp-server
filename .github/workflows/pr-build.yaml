@@ -40,7 +40,10 @@ jobs:
           echo GOPATH $GOPATH
           echo GOMODCACHE $GOMODCACHE
           
+          echo "tailscale module path:"
           go list -m -f '{{.Dir}}' tailscale.com
-          ln -s $(go list -m -f '{{.Dir}}' tailscale.com) app
-          cd app
-          CGO_ENABLED=0 go build -x -o derper cmd/derper
+          echo "tailscale module content:"
+          ls $(go list -m -f '{{.Dir}}' tailscale.com)/cmd/derper
+          # ln -s $(go list -m -f '{{.Dir}}' tailscale.com) app
+          # cd app
+          CGO_ENABLED=0 go build -x -o derper $(go list -m -f '{{.Dir}}' tailscale.com)/cmd/derper
