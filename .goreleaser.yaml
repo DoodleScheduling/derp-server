@@ -3,7 +3,7 @@ project_name: derp-server
 builds:
 - id: derper
   binary: derper
-  dir: app
+  dir: tailscale
   main: cmd/derper
   goos:
   - linux
