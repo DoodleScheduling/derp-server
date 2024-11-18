@@ -32,10 +32,13 @@ jobs:
           go-version: 1.22.x
       - name: build
         run: |
-          echo $GOBIN
-          echo $GOPATH
-          echo $GOMODCACHE
+          echo GOBIN $GOBIN
+          echo GOPATH $GOPATH
+          echo GOMODCACHE $GOMODCACHE
           go install
+          echo GOBIN $GOBIN
+          echo GOPATH $GOPATH
+          echo GOMODCACHE $GOMODCACHE
           
           go list -m -f '{{.Dir}}' tailscale.com
           ln -s $(go list -m -f '{{.Dir}}' tailscale.com) app
