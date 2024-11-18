@@ -34,5 +34,6 @@ jobs:
         run: |
           go install
           cp -Rpv $(go list -m -f '{{.Dir}}' tailscale.com) tailscale
+          sudo chmod 0755 tailscale/ && sudo chown -R raffael. tailscale/
           cd tailscale
-          CGO_ENABLED=0 go build -x -o derper cmd/derper
+          CGO_ENABLED=0 go build -o derper  ./cmd/derper/  
