@@ -33,7 +33,6 @@ jobs:
       - name: build
         run: |
           go install
-          go list -m -f '{{.Dir}}' tailscale.com
-          ln -s $(go list -m -f '{{.Dir}}' tailscale.com) app
-          cd app
+          cp -Rpv $(go list -m -f '{{.Dir}}' tailscale.com) tailscale
+          cd tailscale
           CGO_ENABLED=0 go build -x -o derper cmd/derper
