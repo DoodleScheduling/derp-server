@@ -4,7 +4,7 @@ builds:
 - id: derper
   binary: derper
   dir: tailscale
-  main: cmd/derper
+  main: ./cmd/derper/
   goos:
   - linux
   goarch:
