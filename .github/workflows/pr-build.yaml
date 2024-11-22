@@ -34,6 +34,12 @@ jobs:
         run: |
           go install
           cp -Rpv $(go list -m -f '{{.Dir}}' tailscale.com) tailscale
+          echo "TAILSCALE_VERSION=$(go list -m -f '{{ .Version }}' tailscale.com)" >> $GITHUB_ENV
           sudo chmod 0755 tailscale/ && sudo chown -R $USER. tailscale/
           cd tailscale
-          CGO_ENABLED=0 go build -o derper  ./cmd/derper/  
+          CGO_ENABLED=0 go build -o derper  ./cmd/derper/
+      - name: testversion
+        run: |
+          env | sort | grep 76
+        env:
+          TAILSCALE_VERSION: ${{ env.TAILSCALE_VERSION }}          
