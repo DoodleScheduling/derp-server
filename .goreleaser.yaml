@@ -72,7 +72,6 @@ dockers:
   - --label=org.opencontainers.image.licenses=Apache-2.0
 
 docker_manifests:
-# - name_template: ghcr.io/doodlescheduling/{{ .ProjectName }}:v{{ .Version }}
 - name_template: ghcr.io/doodlescheduling/{{ .ProjectName }}:{{ .Env.TAILSCALE_VERSION }}-tailscale
   image_templates:
   - ghcr.io/doodlescheduling/{{ .ProjectName }}:v{{ .Version }}-amd64
