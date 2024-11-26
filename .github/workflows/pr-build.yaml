@@ -36,4 +36,4 @@ jobs:
           cp -Rpv $(go list -m -f '{{.Dir}}' tailscale.com) tailscale
           sudo chmod 0755 tailscale/ && sudo chown -R $USER. tailscale/
           cd tailscale
-          CGO_ENABLED=0 go build -o derper  ./cmd/derper/  
+          CGO_ENABLED=0 go build -o derper  ./cmd/derper/
