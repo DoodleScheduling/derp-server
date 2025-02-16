@@ -1,4 +1,4 @@
 golang.org/x/mod v0.22.0 h1:D4nJWe9zXqHOmWqj4VMOJhvzj7bEZg4wEYa759z1pH4=
 golang.org/x/mod v0.22.0/go.mod h1:6SkKJ3Xj0I0BrPOZoBy3bdMptDDU9oJrpohJ3eWZ1fY=
-tailscale.com v1.80.1 h1:4BcwzqesagV4hFBOZ4Y7D6asI44i4Qpe7JSvmToSfH4=
-tailscale.com v1.80.1/go.mod h1:4tasV1xjJAMHuX2xWMWAnXEmlrAA6M3w1xnc32DlpMk=
+tailscale.com v1.80.2 h1:MA/AvAyWakq01E1MS6SwKEp2VEFE5CoXAAguwrnbF5g=
+tailscale.com v1.80.2/go.mod h1:HTOFVeo5RY0qBl5Uy+LXHwgp0PLXgVSfgqWI34gSrPA=
