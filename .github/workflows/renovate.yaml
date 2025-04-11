@@ -1,0 +1,35 @@
+name: renovate
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  registry_package:
+  push:
+    branches:
+      - master
+      - main
+      - beta
+      - next
+      - next-major
+jobs:
+  renovate:
+    runs-on:
+      labels:
+        - minimalistic-v2
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Get shared actions
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: 'DoodleScheduling/actions'
+          ref: v3
+          path: './.actions'
+          token: ${{ secrets.GH_ACTIONS }}
+      - uses: ./.actions/renovate
+        with:
+          lib-grafana-private-key: ${{ secrets.PRIVATE_SSH_KEY_LIB_GRAFANA }}
+          token: ${{ secrets.GH_ACTIONS }}
+    timeout-minutes: 45
