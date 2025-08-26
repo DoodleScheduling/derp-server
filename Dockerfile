@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/static:latest@sha256:f4a57e8ffd7ba407bdd0eb315bb54ef1f21a2100a7f032e9102e4da34fe7c196
+FROM gcr.io/distroless/static:latest@sha256:f2ff10a709b0fd153997059b698ada702e4870745b6077eff03a5f4850ca91b6
 
 WORKDIR /
 COPY derper derper
