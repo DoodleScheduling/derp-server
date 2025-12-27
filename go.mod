@@ -1,5 +1,5 @@
 module github.com/DoodleScheduling/derp-server
 
-go 1.23.3
+go 1.25.5
 
-require tailscale.com v1.80.3
+require tailscale.com v1.92.4
