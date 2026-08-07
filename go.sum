@@ -6,5 +6,5 @@ golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f h1:W3F4c+6OLc6H2lb//N1q4WpJk
 golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f/go.mod h1:J1xhfL/vlindoeF/aINzNzt2Bket5bjo9sdOYzOsU80=
 golang.org/x/mod v0.37.0 h1:vF1DjpVEshcIqoEaauuHebaLk1O1forxjxBaVn884JQ=
 golang.org/x/mod v0.37.0/go.mod h1:m8S8VeM9r4dzDwjrKO0a1sZP3YjeMamRRlD+fmR2Q/0=
-tailscale.com v1.102.1 h1:l5ZttM2aHXwcVsMdbQnGuLiAQCvkK8HHy0VI2yHlAys=
-tailscale.com v1.102.1/go.mod h1:ynxKzc9hDxwGLHORQE0qrTH1b8NBRrIsXcnfnug/3dg=
+tailscale.com v1.102.2 h1:K0TJMOFv0F9aJDSjM/C2uVtrwnLn+ek22c42x61FXeA=
+tailscale.com v1.102.2/go.mod h1:ynxKzc9hDxwGLHORQE0qrTH1b8NBRrIsXcnfnug/3dg=
