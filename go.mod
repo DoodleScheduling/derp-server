@@ -2,4 +2,4 @@ module github.com/DoodleScheduling/derp-server
 
 go 1.26.5
 
-require tailscale.com v1.102.1
+require tailscale.com v1.102.2
